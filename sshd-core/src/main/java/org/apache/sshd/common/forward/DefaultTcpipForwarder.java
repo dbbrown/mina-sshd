@@ -989,6 +989,25 @@ public class DefaultTcpipForwarder
             OutputStream outputStream = channel.getInvertedIn();
             outputStream.write(buffer.array(), buffer.rpos(), buffer.available());
             outputStream.flush();
+
+//
+//            OpenFuture future = channel.getOpenFuture();
+//            if (future.isOpened()){
+//            	OutputStream outputStream = channel.getInvertedIn();
+//            	outputStream.write(buffer.array(),buffer.rpos(), buffer.available());
+//            	outputStream.flush();
+//            } else {
+//            	future.addListener(f -> {
+//            		try {
+//            			OutputStream outputStream = channel.getInvertedIn();
+//            			outputStream.write(buffer.array(), buffer.rpos(), buffer.available());
+//            			outputStream.flush();
+//            		} catch ( IOException e){
+//            			channel.getSession().exceptionCaught(e);
+//            		}
+//            	});
+//            }
+
         }
 
         @Override
