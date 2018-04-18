@@ -35,6 +35,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.sshd.client.channel.ClientChannelEvent;
+import org.apache.sshd.client.future.OpenFuture;
 import org.apache.sshd.common.Closeable;
 import org.apache.sshd.common.Factory;
 import org.apache.sshd.common.FactoryManager;
@@ -980,34 +981,22 @@ public class DefaultTcpipForwarder
             Buffer buffer = new ByteArrayBuffer(message.available() + Long.SIZE, false);
             buffer.putBuffer(message);
 
-            Collection<ClientChannelEvent> result = channel.waitFor(STATIC_IO_MSG_RECEIVED_EVENTS, Long.MAX_VALUE);
-            if (log.isTraceEnabled()) {
-                log.trace("messageReceived({}) channel={}, len={} wait result: {}",
-                          session, channel, result, buffer.array());
+            OpenFuture future = channel.getOpenFuture();
+            if (future.isOpened()) {
+                OutputStream outputStream = channel.getInvertedIn();
+                outputStream.write(buffer.array(), buffer.rpos(), buffer.available());
+                outputStream.flush();
+            } else {
+                future.addListener(f -> {
+                    try {
+                        OutputStream outputStream = channel.getInvertedIn();
+                        outputStream.write(buffer.array(), buffer.rpos(), buffer.available());
+                        outputStream.flush();
+                    } catch (IOException e) {
+                        channel.getSession().exceptionCaught(e);
+                    }
+                });
             }
-
-            OutputStream outputStream = channel.getInvertedIn();
-            outputStream.write(buffer.array(), buffer.rpos(), buffer.available());
-            outputStream.flush();
-
-//
-//            OpenFuture future = channel.getOpenFuture();
-//            if (future.isOpened()){
-//            	OutputStream outputStream = channel.getInvertedIn();
-//            	outputStream.write(buffer.array(),buffer.rpos(), buffer.available());
-//            	outputStream.flush();
-//            } else {
-//            	future.addListener(f -> {
-//            		try {
-//            			OutputStream outputStream = channel.getInvertedIn();
-//            			outputStream.write(buffer.array(), buffer.rpos(), buffer.available());
-//            			outputStream.flush();
-//            		} catch ( IOException e){
-//            			channel.getSession().exceptionCaught(e);
-//            		}
-//            	});
-//            }
-
         }
 
         @Override
