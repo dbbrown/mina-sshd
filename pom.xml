@@ -26,7 +26,7 @@
         <version>15</version>
     </parent>
 
-    <groupId>org.apache.sshd</groupId>
+    <groupId>com.martellotech.patch.org.apache.sshd</groupId>
     <artifactId>sshd</artifactId>
     <version>1.6.0+SSHD-721</version>
     <name>Apache Mina SSHD</name>
@@ -839,7 +839,7 @@
                             <goal>sources</goal>
                         </goals>
                         <configuration>
-                            <markersDirectory>${settings.localRepository}/org/apache/sshd/dependency-maven-plugin-markers</markersDirectory>
+                            <markersDirectory>${settings.localRepository}/com.martellotech.patch.org.apache.sshd/dependency-maven-plugin-markers</markersDirectory>
                         </configuration>
                     </execution>
                 </executions>

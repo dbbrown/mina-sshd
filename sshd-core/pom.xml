@@ -22,7 +22,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.apache.sshd</groupId>
+        <groupId>com.martellotech.patch.org.apache.sshd</groupId>
         <artifactId>sshd</artifactId>
         <version>1.6.0+SSHD-721</version>
         <relativePath>..</relativePath>
@@ -139,7 +139,7 @@
                         </goals>
                         <configuration>
                             <includes>
-                                <include>org/apache/sshd/util/test/**/*</include>
+                                <include>com.martellotech.patch.org.apache.sshd/util/test/**/*</include>
                             </includes>
                         </configuration>
                     </execution>
@@ -152,7 +152,7 @@
                     <redirectTestOutputToFile>true</redirectTestOutputToFile>
                     <reportsDirectory>${project.build.directory}/surefire-reports-nio2</reportsDirectory>
                     <systemProperties>
-                        <org.apache.sshd.common.io.IoServiceFactory>org.apache.sshd.common.io.nio2.Nio2ServiceFactory</org.apache.sshd.common.io.IoServiceFactory>
+                        <com.martellotech.patch.org.apache.sshd.common.io.IoServiceFactory>com.martellotech.patch.org.apache.sshd.common.io.nio2.Nio2ServiceFactory</com.martellotech.patch.org.apache.sshd.common.io.IoServiceFactory>
                     </systemProperties>
                     <excludes>
                         <exclude>**/*LoadTest.java</exclude>
@@ -189,9 +189,9 @@
 								<configuration>
 									<reportsDirectory>${project.build.directory}/surefire-reports-jce</reportsDirectory>
 									<systemProperties>
-                                        <org.apache.sshd.security.provider.BC.enabled>false</org.apache.sshd.security.provider.BC.enabled>
+                                        <com.martellotech.patch.org.apache.sshd.security.provider.BC.enabled>false</com.martellotech.patch.org.apache.sshd.security.provider.BC.enabled>
                                             <!-- deprecated -->
-										<org.apache.sshd.registerBouncyCastle>false</org.apache.sshd.registerBouncyCastle>
+										<com.martellotech.patch.org.apache.sshd.registerBouncyCastle>false</com.martellotech.patch.org.apache.sshd.registerBouncyCastle>
 									</systemProperties>
 								</configuration>
 							</execution>
@@ -219,7 +219,7 @@
 								<configuration>
 									<reportsDirectory>${project.build.directory}/surefire-reports-mina</reportsDirectory>
 									<systemProperties>
-										<org.apache.sshd.common.io.IoServiceFactory>org.apache.sshd.common.io.mina.MinaServiceFactory</org.apache.sshd.common.io.IoServiceFactory>
+										<com.martellotech.patch.org.apache.sshd.common.io.IoServiceFactory>com.martellotech.patch.org.apache.sshd.common.io.mina.MinaServiceFactory</com.martellotech.patch.org.apache.sshd.common.io.IoServiceFactory>
 									</systemProperties>
 								</configuration>
 							</execution>
