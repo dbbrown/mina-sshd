@@ -22,7 +22,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.apache.sshd</groupId>
+        <groupId>com.martellotech.patch.org.apache.sshd</groupId>
         <artifactId>sshd</artifactId>
         <version>1.6.0+SSHD-721</version>
     </parent>
@@ -37,7 +37,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.sshd</groupId>
+            <groupId>com.martellotech.patch.org.apache.sshd</groupId>
             <artifactId>sshd-core</artifactId>
             <version>${project.version}</version>
         </dependency>
