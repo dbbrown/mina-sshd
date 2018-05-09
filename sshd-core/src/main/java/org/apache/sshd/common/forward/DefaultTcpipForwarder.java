@@ -993,7 +993,13 @@ public class DefaultTcpipForwarder
                         outputStream.write(buffer.array(), buffer.rpos(), buffer.available());
                         outputStream.flush();
                     } catch (IOException e) {
-                        channel.getSession().exceptionCaught(e);
+                        try {
+                            exceptionCaught(session, e);
+                        } catch (Exception err) {
+                            log.warn("messageReceived({}) failed ({}) to signal {}[{}] on channel={}: {}", session,
+                            err.getClass().getSimpleName(), e.getClass().getSimpleName(), e.getMessage(),
+                                channel, err.getMessage());
+                        }
                     }
                 });
             }
